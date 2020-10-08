@@ -37,20 +37,24 @@ export default class Home extends Component {
         .then(response => response.json())
         .then(result => this.setState({
             buisnessArray:result
+        }),
+        this.setState({
+            search: ""
         })
     )}
   
-    handleChange(event) {
+    handleChange = (event) =>{
         this.setState({search:event.target.value});
       }
 
 render() {
     console.log(this.state.buisnessArray)
         return (
-            <div>
-                <input type='text' placeholder="search" value={this.state.search} onChange={this.handleChange}/>
-                <button onClick={ ()=> this.fetchApi()}>Search</button>
-             </div>
+        <div>
+            <input type='text' placeholder="search" value={this.state.search} onChange={(event)=>this.handleChange(event)}/>
+            <button onClick={ ()=> this.fetchApi()}>Search</button>
+          
+        </div>
         )
     }
 }
