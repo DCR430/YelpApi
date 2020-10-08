@@ -39,7 +39,7 @@ export default class Home extends Component {
             buisnessArray:result
         }),
         this.setState({
-            search: ""
+            search: " "
         })
     )}
   
