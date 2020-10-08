@@ -42,10 +42,14 @@ export default class Home extends Component {
             search: " "
         })
     )}
+
+    //do we need a submit handler?
   
     handleChange = (event) =>{
         this.setState({search:event.target.value});
       }
+
+    
 
 render() {
     console.log(this.state.buisnessArray)
