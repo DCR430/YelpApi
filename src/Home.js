@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
-import { Card, Button, Row, Container, Col } from 'react-bootstrap';
+import { makeStyles } from '@material-ui/core/styles';
+import {Card, CardActionArea, CardActions, CardContent, CardMedia, Button, Grid, AppBar, Toolbar, Typography, IconButton} from '@material-ui/core';
+
+
 
 
 export default class Home extends Component {
@@ -10,6 +13,8 @@ export default class Home extends Component {
         longitude: -122.399972,
         latitude: 37.786882,
     }
+
+    
 
     componentDidMount(){
         navigator.geolocation.getCurrentPosition(function(position) {
@@ -41,32 +46,51 @@ export default class Home extends Component {
 
 render() {
     const card = this.state.buisnessArray.map(obj=>(
-        <Col>
-            <Card style={{ width: '18rem' }}>
-                <Card.Img variant="top" src={obj.image_url} style={{ height: 100}}/>
-                <Card.Body>
-                    <Card.Title>{obj.name}</Card.Title>
-                    <Card.Text>
-                        Address: {obj.location.address1}
-                    Phone: {obj.phone}
-                    </Card.Text>
-                    <Button variant="danger" href={obj.url}>See on Yelp</Button>
-                </Card.Body>
-            </Card> 
-        </Col>
+        <Card style={{maxWidth: 345}}>
+        <CardActionArea>
+          <CardMedia
+            style={{height: 140}}
+            image={obj.image_url}
+            title="Contemplative Reptile"
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="h2">
+              {obj.name}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+            {obj.location.address1}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+        <CardActions>
+          <Button size="small" color="primary">
+            See on yelp
+          </Button>
+        </CardActions>
+      </Card>
     ))
     console.log(this.state.buisnessArray)
         return (
         <>
         <div>
-            <input type='text' placeholder="search" value={this.state.search} onChange={(event)=>this.handleChange(event)}/>
-            <button onClick={ ()=> this.fetchApi()}>Search</button>
+        <AppBar position="static">
+  <Toolbar>
+    <IconButton edge="start"  color="inherit" aria-label="menu">
+    </IconButton>
+    <Typography variant="h6" >
+      Yelp API
+    </Typography>
+    <input type='text' placeholder="search" value={this.state.search} onChange={(event)=>this.handleChange(event)}/>
+        <Button color="inherit" onClick={ ()=> this.fetchApi()}>Search</Button>
+  </Toolbar>
+</AppBar>
+            
         </div>
-        <Container>
-            <Row>
+        <div style={{flexGrow: 1}}>
+        <Grid container spacing={.5}>
         {card}
-        </Row>
-        </Container>
+        </Grid>
+        </div>
         </>
         )
     }
