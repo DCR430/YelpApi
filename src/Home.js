@@ -63,13 +63,12 @@ render() {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button size="small" color="primary">
+          <Button href={obj.url} size="small" color="primary">
             See on yelp
           </Button>
         </CardActions>
       </Card>
     ))
-    console.log(this.state.buisnessArray)
         return (
         <>
         <div>
@@ -80,7 +79,7 @@ render() {
     <Typography variant="h6" >
       Yelp API
     </Typography>
-    <input type='text' placeholder="search" value={this.state.search} onChange={(event)=>this.handleChange(event)}/>
+    <input style={{marginLeft: 700}} type='text' placeholder="search" value={this.state.search} onChange={(event)=>this.handleChange(event)}/>
         <Button color="inherit" onClick={ ()=> this.fetchApi()}>Search</Button>
   </Toolbar>
 </AppBar>
