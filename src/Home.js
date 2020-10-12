@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import {
   Card,
   CardActionArea,
@@ -13,16 +12,21 @@ import {
   Typography,
   IconButton,
 } from "@material-ui/core";
+import { FaBars } from 'react-icons/fa'
+import { FaLocationArrow } from 'react-icons/fa'
+
+
 
 export default class Home extends Component {
   state = {
     search: "",
+    locationSearch: "",
     buisnessArray: [],
     lng: -122.399972,
     lat: 37.786882,
   };
 
-  componentDidMount=()=>{
+  getLocation=()=>{
     navigator.geolocation.getCurrentPosition(
         (position) => {
           let lat = position.coords.latitude
@@ -38,7 +42,7 @@ export default class Home extends Component {
           console.error(JSON.stringify(error))
         },
         {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-      )
+      );
   }
 
   fetchApi=()=>{
@@ -60,6 +64,7 @@ export default class Home extends Component {
 
   handleChange = (event) => {
     this.setState({ search: event.target.value });
+    
   };
 
   render() {
@@ -97,15 +102,26 @@ export default class Home extends Component {
                 edge="start"
                 color="inherit"
                 aria-label="menu"
-              ></IconButton>
+                onClick={() => this.setState({
+                    buisnessArray: []
+                })}
+              > 
+              <FaBars />
+              </IconButton>
               <Typography variant="h6">Yelp API</Typography>
               <input
                 style={{ marginLeft: 700 }}
                 type="text"
-                placeholder="search"
+                placeholder="Search"
                 value={this.state.search}
                 onChange={(event) => this.handleChange(event)}
               />
+              <IconButton
+                color="inherit"
+              > 
+               <FaLocationArrow onClick={this.getLocation} />
+              </IconButton>
+             
               <Button color="inherit" onClick={() => this.fetchApi()}>
                 Search
               </Button>
