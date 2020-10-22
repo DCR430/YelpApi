@@ -10,7 +10,7 @@ export default class Map extends Component {
       lat: 37.786882,
       lng: 122.399972
     },
-    zoom: 9
+    zoom: 10
   };
  
   render() {
